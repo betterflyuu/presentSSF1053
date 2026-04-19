@@ -1,0 +1,620 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Premium Dark Presentation - GE15</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    
+    <style>
+        /* === COLOR PALETTE NATA PREMIUM DARK === */
+        :root {
+            --bg-nata: #121212;
+            --bg-surface: #1E1E1E;
+            --text-light: #F5F5F5;
+            --text-muted: #888888;
+            
+            /* Gradient Emas Animasi */
+            --gold-1: #B38728;
+            --gold-2: #FCF6BA;
+            --gold-3: #BF953F;
+            --gold-4: #FBF5B7;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: var(--bg-nata);
+            color: var(--text-light);
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+            background-image: radial-gradient(circle at 50% 0%, rgba(191, 149, 63, 0.05) 0%, transparent 70%);
+        }
+
+        /* === CONTAINER PRESENTASI === */
+        .presentation {
+            max-width: 1100px; 
+            margin: 0 auto;
+            min-height: 100vh;
+        }
+
+        .slide {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 80px 40px;
+            position: relative;
+        }
+
+        /* === HEADER INFO === */
+        .slide-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding-bottom: 20px;
+            margin-bottom: 60px;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            color: var(--text-muted);
+            opacity: 0;
+            transform: translateY(-20px);
+            transition: all 1s ease;
+        }
+
+        .slide-header .tag {
+            border: 1px solid var(--gold-3);
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-weight: 600;
+        }
+
+        /* === ANIMATED GOLD GRADIENT === */
+        .gold-gradient-text {
+            background: linear-gradient(
+                to right, 
+                var(--gold-1), var(--gold-2), var(--gold-3), var(--gold-4), var(--gold-1)
+            );
+            background-size: 200% auto;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: shine 4s linear infinite;
+            display: inline-block;
+        }
+
+        @keyframes shine {
+            to { background-position: 200% center; }
+        }
+
+        /* === MAIN HEADLINE === */
+        .main-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 4.5rem;
+            font-weight: 700;
+            line-height: 1.1;
+            letter-spacing: 1px;
+            margin-bottom: 60px;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 1.2s cubic-bezier(0.16, 1, 0.3, 1) 0.3s;
+        }
+
+        .main-title .subtitle {
+            font-family: 'Inter', sans-serif;
+            font-size: 1.2rem;
+            letter-spacing: 5px;
+            text-transform: uppercase;
+            display: block;
+            margin-bottom: 15px;
+            font-weight: 300;
+        }
+
+        /* === GRID SLIDE 1 (KONTEN ARTIKEL) === */
+        .content-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+        }
+
+        .card {
+            background-color: var(--bg-surface);
+            border-radius: 16px;
+            padding: 2px; 
+            position: relative;
+            opacity: 0;
+            transform: translateY(40px);
+            transition: all 1s ease 0.6s;
+            overflow: hidden;
+        }
+
+        .card:nth-child(2) { transition-delay: 0.9s; }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: -50%; left: -50%; width: 200%; height: 200%;
+            background: conic-gradient(from 0deg, transparent 0%, var(--gold-2) 25%, var(--gold-3) 50%, transparent 75%);
+            animation: rotateGlow 4s linear infinite;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+
+        .card:hover::before { opacity: 1; }
+
+        @keyframes rotateGlow { 100% { transform: rotate(360deg); } }
+
+        .card-inner {
+            background-color: var(--bg-nata);
+            border-radius: 14px;
+            padding: 30px;
+            height: 100%;
+            position: relative;
+            z-index: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .card-img-container {
+            width: 100%;
+            height: 220px;
+            border-radius: 8px;
+            overflow: hidden;
+            background-color: #000; 
+        }
+
+        .card-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: grayscale(100%) opacity(0.7);
+            transition: all 0.7s ease;
+        }
+
+        .card:hover .card-img {
+            filter: grayscale(0%) opacity(1);
+            transform: scale(1.05);
+        }
+
+        .card h2 { font-family: 'Playfair Display', serif; font-size: 1.6rem; color: var(--text-light); line-height: 1.3; }
+        .card p { color: var(--text-muted); font-size: 0.95rem; line-height: 1.7; font-weight: 300; text-align: justify; }
+
+        /* === SLIDE 2 - TEAM INTRODUCTION === */
+        .team-section {
+            text-align: center;
+            width: 100%;
+            padding: 40px 0;
+        }
+
+        .team-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 3.5rem;
+            margin-bottom: 10px;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 1s ease 0.3s;
+        }
+
+        .team-desc {
+            color: var(--text-muted);
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            font-size: 0.9rem;
+            margin-bottom: 60px;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 1s ease 0.5s;
+        }
+
+        .team-grid {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            flex-wrap: wrap;
+        }
+
+        .team-member {
+            background-color: var(--bg-surface);
+            padding: 15px 15px 25px 15px; 
+            border-radius: 4px; 
+            border: 1px solid rgba(191, 149, 63, 0.15); 
+            box-shadow: 0 10px 30px rgba(0,0,0,0.6);
+            opacity: 0;
+            position: relative;
+            cursor: pointer;
+            transition: all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            width: 190px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .team-member:nth-child(1) { transform: translateY(40px) rotate(-3deg); transition-delay: 0.6s; }
+        .team-member:nth-child(2) { transform: translateY(40px) rotate(2deg); transition-delay: 0.8s; }
+        .team-member:nth-child(3) { transform: translateY(40px) rotate(-1.5deg); transition-delay: 1.0s; }
+        .team-member:nth-child(4) { transform: translateY(40px) rotate(3deg); transition-delay: 1.2s; }
+        .team-member:nth-child(5) { transform: translateY(40px) rotate(-2deg); transition-delay: 1.4s; }
+
+        .slide.is-visible .team-member:nth-child(1) { opacity: 1; transform: translateY(0) rotate(-3deg); }
+        .slide.is-visible .team-member:nth-child(2) { opacity: 1; transform: translateY(0) rotate(2deg); }
+        .slide.is-visible .team-member:nth-child(3) { opacity: 1; transform: translateY(0) rotate(-1.5deg); }
+        .slide.is-visible .team-member:nth-child(4) { opacity: 1; transform: translateY(0) rotate(3deg); }
+        .slide.is-visible .team-member:nth-child(5) { opacity: 1; transform: translateY(0) rotate(-2deg); }
+
+        .team-member:hover {
+            transform: translateY(-15px) rotate(0deg) !important;
+            border-color: var(--gold-3);
+            box-shadow: 0 15px 40px rgba(191, 149, 63, 0.2);
+            z-index: 10;
+            transition-delay: 0s !important; 
+        }
+
+        .member-photo-wrapper {
+            width: 100%;
+            height: 200px;
+            overflow: hidden;
+            border-radius: 2px;
+            margin-bottom: 15px;
+            background-color: #000; 
+        }
+
+        .member-photo {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: grayscale(100%) contrast(1.1);
+            transition: all 0.6s ease;
+        }
+
+        .team-member:hover .member-photo {
+            filter: grayscale(0%) contrast(1);
+            transform: scale(1.05);
+        }
+
+        .member-info {
+            text-align: center;
+            width: 100%;
+        }
+
+        .member-name {
+            font-family: 'Playfair Display', serif;
+            font-size: 0.95rem;
+            color: var(--text-light);
+            font-weight: 600;
+            margin-bottom: 8px;
+            line-height: 1.3;
+            transition: color 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 2.6rem;
+        }
+
+        .team-member:hover .member-name { color: var(--gold-2); }
+
+        .member-role {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.85rem;
+            color: var(--gold-3);
+            font-weight: 600;
+            letter-spacing: 2px;
+        }
+
+        /* =========================================================
+           TAMBAHAN BARU: SLIDE 3 - MONITORING TEXT & IMAGE LAYOUT
+           ========================================================= */
+        .section-header-large {
+            font-family: 'Playfair Display', serif;
+            font-size: 3.8rem;
+            line-height: 1.1;
+            margin-bottom: 50px;
+            text-align: left;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 1s ease 0.3s;
+        }
+
+        .section-header-large .small-top {
+            font-family: 'Inter', sans-serif;
+            font-size: 1.1rem;
+            letter-spacing: 4px;
+            color: var(--text-muted);
+            display: block;
+            margin-bottom: 15px;
+            font-weight: 400;
+        }
+
+        /* Grid 2x2 buat menyeimbangkan 1 foto dan 3 teks */
+        .text-layout-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+        }
+
+        /* --- STYLING KHUSUS FOTO PREMIUM SLIDE 3 --- */
+        .image-card-editorial {
+            background-color: var(--bg-surface);
+            border-radius: 12px;
+            padding: 2px;
+            position: relative;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            overflow: hidden;
+            min-height: 350px; /* Tinggi disesuaikan biar sejajar dengan text card */
+        }
+
+        .image-card-editorial.item-0 { transition-delay: 0.4s; }
+
+        .image-card-editorial::before {
+            content: '';
+            position: absolute;
+            top: -50%; left: -50%; width: 200%; height: 200%;
+            background: conic-gradient(from 0deg, transparent 0%, var(--gold-2) 25%, var(--gold-3) 50%, transparent 75%);
+            animation: rotateGlow 4s linear infinite;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+
+        .image-card-editorial:hover::before { opacity: 1; }
+
+        .image-card-inner {
+            background-color: var(--bg-nata);
+            border-radius: 10px;
+            width: 100%;
+            height: 100%;
+            position: relative;
+            z-index: 1;
+            overflow: hidden;
+        }
+
+        .image-card-inner img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: grayscale(100%) opacity(0.7);
+            transition: all 0.7s ease;
+        }
+
+        .image-card-editorial:hover img {
+            filter: grayscale(0%) opacity(1);
+            transform: scale(1.05);
+        }
+
+        /* --- STYLING TEKS MATERI --- */
+        .text-card-editorial {
+            background-color: var(--bg-surface);
+            padding: 35px 40px;
+            border-radius: 12px;
+            border-left: 4px solid var(--gold-3); /* Aksen garis emas di kiri */
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        /* Delay animasi biar berurutan masuknya */
+        .text-card-editorial.item-1 { transition-delay: 0.6s; }
+        .text-card-editorial.item-2 { transition-delay: 0.9s; }
+        .text-card-editorial.item-3 { transition-delay: 1.2s; }
+
+        .text-card-editorial:hover {
+            background-color: rgba(191, 149, 63, 0.05); 
+            border-left-color: var(--gold-2);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            transform: translateX(10px); 
+        }
+
+        .text-card-editorial h3 {
+            color: var(--gold-2);
+            font-family: 'Playfair Display', serif;
+            font-size: 1.25rem;
+            margin-bottom: 15px;
+            line-height: 1.4;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+        }
+
+        .text-card-editorial p {
+            color: var(--text-light);
+            font-weight: 300;
+            line-height: 1.7;
+            font-size: 0.95rem;
+            text-align: justify;
+        }
+
+        /* === ANIMATION TRIGGER === */
+        .slide.is-visible .slide-header,
+        .slide.is-visible .main-title,
+        .slide.is-visible .card,
+        .slide.is-visible .team-title,
+        .slide.is-visible .team-desc,
+        .slide.is-visible .section-header-large,
+        .slide.is-visible .image-card-editorial,
+        .slide.is-visible .text-card-editorial {
+            opacity: 1;
+            transform: translateY(0) translateX(0);
+        }
+
+        /* === RESPONSIVE UTK MOBILE === */
+        @media (max-width: 1024px) {
+            .team-member { width: 30%; }
+        }
+        @media (max-width: 900px) {
+            .main-title, .section-header-large { font-size: 3rem; }
+            .content-grid, .text-layout-grid { grid-template-columns: 1fr; gap: 30px; }
+            .slide-header { flex-direction: column; gap: 15px; text-align: center; }
+            .slide { padding: 40px 20px; }
+            .team-title { font-size: 2.5rem; }
+            .team-member { width: 45%; }
+            .text-card-editorial { padding: 25px; }
+            .image-card-editorial { min-height: 250px; }
+        }
+        @media (max-width: 500px) {
+            .team-member { width: 100%; }
+            .member-photo-wrapper { height: 280px; }
+            .section-header-large { font-size: 2.2rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="presentation">
+        
+        <section class="slide" id="slide-1">
+            <header class="slide-header">
+                <span>SSF1053: Introduction to Political Science</span>
+                <span class="tag gold-gradient-text">SPECIAL REPORT</span>
+                <span>Group 2 Presentation</span>
+            </header>
+
+            <h1 class="main-title">
+                <span class="subtitle gold-gradient-text">Digital Identity Politics</span>
+                How Social Media Drives Polarization in <span class="gold-gradient-text" style="font-style: italic;">GE15</span>
+            </h1>
+
+            <div class="content-grid">
+                <div class="card">
+                    <div class="card-inner">
+                        <div class="card-img-container">
+                            <img src="gambar_materi_1.jpeg" alt="Social Media" class="card-img">
+                        </div>
+                        <h2>GE15 CyberTroops' Strategy on the <span class="gold-gradient-text">TikTok Election</span> Front</h2>
+                        <p>An examination of how short-form video content was weaponized to influence young voters, bypass traditional media gateways, and cultivate algorithmic echo chambers during the highly contested GE15.</p>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-inner">
+                        <div class="card-img-container">
+                            <img src="gambar_materi_2.jpeg" alt="Parliament" class="card-img">
+                        </div>
+                        <h2>Transformation of Digital Campaigns & The <span class="gold-gradient-text">Rise of Cyber Forces</span></h2>
+                        <p>Understanding the shift from grassroots physical campaigning to systematic digital warfare. We analyze the funding, deployment, and narratives pushed by political cyber forces to divide digital communities.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="slide" id="slide-2">
+            <div class="team-section">
+                <h2 class="team-title"><span class="gold-gradient-text">Group Members</span></h2>
+                <p class="team-desc">SSF1053: Introduction to Political Science</p>
+
+                <div class="team-grid">
+                    <div class="team-member">
+                        <div class="member-photo-wrapper">
+                            <img src="foto_nurul.jpeg" alt="Foto Nurul Hidayah" class="member-photo">
+                        </div>
+                        <div class="member-info">
+                            <h3 class="member-name">Nurul Hidayah Bt Mohamed Fadil</h3>
+                            <span class="member-role">111929</span>
+                        </div>
+                    </div>
+
+                    <div class="team-member">
+                        <div class="member-photo-wrapper">
+                            <img src="foto_yanira.jpeg" alt="Foto Yanira" class="member-photo">
+                        </div>
+                        <div class="member-info">
+                            <h3 class="member-name">Yanira<br>Ayunie</h3>
+                            <span class="member-role">112768</span>
+                        </div>
+                    </div>
+
+                    <div class="team-member">
+                        <div class="member-photo-wrapper">
+                            <img src="foto_alyaa.jpeg" alt="Foto Alyaa" class="member-photo">
+                        </div>
+                        <div class="member-info">
+                            <h3 class="member-name">Alyaa Qurratu’aini Bt Razali</h3>
+                            <span class="member-role">108882</span>
+                        </div>
+                    </div>
+
+                    <div class="team-member">
+                        <div class="member-photo-wrapper">
+                            <img src="foto_umairah.jpeg" alt="Foto Umairah" class="member-photo">
+                        </div>
+                        <div class="member-info">
+                            <h3 class="member-name">Umairah<br>Bt Jamrah</h3>
+                            <span class="member-role">112627</span>
+                        </div>
+                    </div>
+
+                    <div class="team-member">
+                        <div class="member-photo-wrapper">
+                            <img src="foto_iman.jpeg" alt="Foto Muhammad Iman" class="member-photo">
+                        </div>
+                        <div class="member-info">
+                            <h3 class="member-name">Muhammad Iman Firdaus Bin Awaluddin</h3>
+                            <span class="member-role">105230</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="slide" id="slide-3">
+            
+            <h2 class="section-header-large">
+                <span class="small-top">Social Media Monitoring of</span>
+                <span class="gold-gradient-text">Malaysia’s 15th General Election</span>
+            </h2>
+
+            <div class="text-layout-grid">
+                
+                <div class="image-card-editorial item-0">
+                    <div class="image-card-inner">
+                        <img src="gambar_materi_3.jpeg" alt="GE15 Political Context">
+                    </div>
+                </div>
+                
+                <div class="text-card-editorial item-1">
+                    <h3>Malaysian Politics Raging: From the Collapse of the 2018 Mandate to the Digital War of GE15</h3>
+                    <p>After the historic 2018 elections, Malaysia was suddenly thrown into political uncertainty in early 2020 following the defections of several government members of parliament (MPs). This resulted in three prime ministers leading three governments after the 14th general election. With so much political instability, the stakes for the 15th General Elections (GE15) in 2022 were high and social media inevitably became an important space for power brokers and politicians.</p>
+                </div>
+
+                <div class="text-card-editorial item-2">
+                    <h3>Digital Evolution: Social Media As The Main 'Battlefield' Of Malaysian Politics</h3>
+                    <p>Social media is a popular space for Malaysians to interact with each other. Since the 2008 elections, politicians, political parties and their supporters have increasingly turned to social media to engage with netizens. It has since become an important channel to shape political discourse, with politicians and opinion leaders bypassing the mainstream and online media to post comments and statements directly on various platforms.</p>
+                </div>
+
+                <div class="text-card-editorial item-3">
+                    <h3>Social Media: Between Political Discourse and Toxic Rhetoric</h3>
+                    <p>In the run-up to previous elections, online users employed divisive language and hate based narratives around race, religion and royalty, popularly known as 3R. The GE15 was expected to be no different. This was especially because a couple of issues had made social media an important space that shapes political discourse, including by promoting hate and toxic rhetoric. One was the political uncertainty of the past five years. This meant the stakes were high in GE15. The other was the rollout of automatic registration for voters above 18. This meant there were 1.4 million voters aged between 18 to 20, whose voting patterns were unknown but whose use of social media was well-documented.</p>
+                </div>
+
+            </div>
+
+        </section>
+
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const slides = document.querySelectorAll('.slide');
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('is-visible');
+                    }
+                });
+            }, { threshold: 0.15 });
+
+            slides.forEach(slide => observer.observe(slide));
+            
+            setTimeout(() => {
+                if(slides[0]) slides[0].classList.add('is-visible');
+            }, 100);
+        });
+    </script>
+</body>
+</html>
